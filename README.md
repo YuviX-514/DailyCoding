@@ -1,4 +1,4 @@
-# 🧠 sDaily Coding
+# 🧠 Daily Coding
 
 Welcome to **DailyCoding** — my personal space for practicing and mastering **Data Structures & Algorithms** 🧮.
 This repo contains my daily coding journey, where I grind through problems from **LeetCode**.
