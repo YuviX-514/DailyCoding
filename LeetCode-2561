@@ -1,0 +1,33 @@
+class Solution {
+    public long minCost(int[] basket1, int[] basket2) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        for(int i = 0;i<basket1.length;i++){
+            freq.put(basket1[i], freq.getOrDefault(basket1[i], 0)+1);
+            freq.put(basket2[i], freq.getOrDefault(basket2[i], 0)-1);
+        }
+        List<Integer> list = new ArrayList<>();
+        long minVal = Long.MAX_VALUE;
+
+        for(Map.Entry<Integer, Integer> entry : freq.entrySet()){
+            int val = entry.getKey();
+            int count = entry.getValue();
+            minVal = Math.min(minVal, val);
+
+            if(count % 2 != 0)return -1;
+
+            for(int i = 0;i<Math.abs(count)/2;i++){
+                list.add(val);
+            }
+        }
+        Collections.sort(list);
+        long cost = 0;
+
+        for(int i = 0;i<list.size()/2;i++){
+            cost += Math.min(2*minVal, list.get(i));
+        }
+
+        return cost;
+        
+
+    }
+}
