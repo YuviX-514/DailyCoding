@@ -1,0 +1,29 @@
+class Solution {
+    public int maxTotalFruits(int[][] fruits, int startPos, int k) {
+        int total = 0;
+        int maxFruits = 0;
+        int left = 0;
+        int right = 0;
+        
+        while(right < fruits.length){
+            total += fruits[right][1];
+
+            while(left <= right && !canReach(startPos, k, fruits[left][0], fruits[right][0])){
+                total -= fruits[left][1];
+                left++;
+            }
+            maxFruits = Math.max(maxFruits, total);
+            right++;
+        }
+        return maxFruits; 
+
+    }
+
+    public boolean canReach(int s, int k, int l, int r){
+
+        int dist1 = Math.abs(s- l) + (r - l);
+        int dist2 = Math.abs(s- r) + (r - l);
+
+        return Math.min(dist1, dist2) <= k;
+    }
+}
