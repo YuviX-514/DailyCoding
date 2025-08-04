@@ -1,0 +1,29 @@
+class Solution {
+    public int totalFruit(int[] fruits) {
+        if(fruits.length == 1)return 1;
+
+        int left = 0;
+        int right = 1;
+        int maxSum = Integer.MIN_VALUE;
+        int a = fruits[left];
+        int b = fruits[right];
+
+        while(right < fruits.length){
+            int fruit = fruits[right];
+
+            if(fruit != a && a == b)b = fruit;
+
+            if(fruit != a && fruit != b){
+                left = right - 1;
+                while(fruits[left] == fruits[left - 1])left--;
+
+                a = fruits[left];
+                b = fruits[right];
+            }
+            int sum = right - left + 1;
+            maxSum = Math.max(sum, maxSum);
+            right++;
+        }
+        return maxSum;
+    }
+}
