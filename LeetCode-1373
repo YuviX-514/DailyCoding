@@ -1,0 +1,50 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int maxSumBST(TreeNode root) {
+        return helper(root).ans;
+    }
+    class BSTPair{
+        boolean isBst = true;
+        long min = Long.MAX_VALUE;
+        long max = Long.MIN_VALUE;
+        int sum = 0;
+        int ans = 0;
+    }
+
+    public BSTPair helper(TreeNode root){
+        if(root ==null)return new BSTPair();
+
+        BSTPair lbp = helper(root.left);
+        BSTPair rbp = helper(root.right);
+
+        BSTPair sbp = new BSTPair();
+        sbp.min = Math.min(lbp.min, Math.min(rbp.min, root.val));
+        sbp.max = Math.max(lbp.max, Math.max(rbp.max, root.val));
+        sbp.isBst = lbp.isBst && rbp.isBst && lbp.max < root.val && rbp.min > root.val;
+        sbp.sum = lbp.sum+rbp.sum+root.val;
+
+        if(sbp.isBst){
+            sbp.ans = Math.max(lbp.ans, Math.max(rbp.ans, sbp.sum));
+        }
+        else{
+            sbp.ans = Math.max(lbp.ans, rbp.ans);
+
+        }
+
+        return sbp;
+    }
+}
