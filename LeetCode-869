@@ -1,0 +1,16 @@
+class Solution {
+    public boolean reorderedPowerOf2(int n) {
+        char[]target = String.valueOf(n).toCharArray();
+        Arrays.sort(target);
+        String sorted = new String(target);
+
+        for(int i = 0; i<31;i++){
+            int power = 1 << i;
+            char[] arr = String.valueOf(power).toCharArray();
+            Arrays.sort(arr);
+            String str = new String(arr);
+            if(str.equals(sorted))return true;
+        }
+        return false;
+    }
+}
