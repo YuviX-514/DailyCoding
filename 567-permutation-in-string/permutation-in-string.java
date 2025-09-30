@@ -1,20 +1,24 @@
 class Solution {
     public boolean checkInclusion(String s1, String s2) {
-        if(s2.length() < s1.length())return false;
-        Map<Character, Integer> map = new HashMap<>();
-        for(char c : s1.toCharArray())map.put(c, map.getOrDefault(c, 0)+1);
-        for(int i = 0;i<s2.length()-s1.length()+1;i++){
-            if(check(s2.substring(i, i+s1.length()), map))return true;
+        int i = 0;
+        int j = s1.length();
+        while(i+j <= s2.length()){
+            String s = s2.substring(i, i+j);
+            if(check(s, s1))return true;
+            i++;
         }
-       return false;
+        return false;
     }
 
-    public boolean check(String s, Map<Character, Integer> map){
-        Map<Character, Integer> m = new HashMap<>();
+    public boolean check(String s1, String s2){
+        int freq1[] = new int[26];
+        int freq2[] = new int[26];
+        for(char c : s1.toCharArray())freq1[c-'a']++;
+        for(char c : s2.toCharArray())freq2[c-'a']++;
 
-        for(char c : s.toCharArray())m.put(c, m.getOrDefault(c, 0)+1);
-
-        return map.equals(m);
-
+        for(int i = 0;i<26;i++){
+            if(freq1[i] != freq2[i])return false;
+        }
+        return true;
     }
 }
