@@ -12,7 +12,6 @@ class Solution {
 
         int count = 0;
         for(int i = 0;i<arr.length;i++){
-            System.out.print(arr[i]+" ");
             count += arr[i];
         }
         return count;
