@@ -1,25 +1,19 @@
 class Solution {
-    public int candy(int[] ratings) {
-        int [] candies = new int[ratings.length];
-        for(int i =0;i<candies.length;i++){
-            candies[i] = 1;
+    public int candy(int[] c) {
+        int arr[] = new int[c.length];
+        Arrays.fill(arr, 1);
+
+        for(int i=1;i<arr.length;i++){
+            if(c[i] > c[i-1])arr[i] = arr[i-1]+1;
+        }
+        for(int i=arr.length-2;i>=0;i--){
+            if(c[i] > c[i+1] && arr[i] <= arr[i+1])arr[i] = arr[i+1]+1;
         }
 
-        //left :
-        for(int i =1;i<ratings.length;i++){
-            if(ratings[i]>ratings[i-1]){
-                candies[i] = candies[i-1] +1;
-            }
-        }
-        //right :
-        for(int i =ratings.length-2;i>=0;i--){
-            if(ratings[i]>ratings[i+1]){
-                candies[i] = Math.max(candies[i], candies[i+1]+1);
-            }
-        }
         int count = 0;
-        for(int i =0;i<candies.length;i++){
-            count += candies[i];
+        for(int i = 0;i<arr.length;i++){
+            System.out.print(arr[i]+" ");
+            count += arr[i];
         }
         return count;
     }
