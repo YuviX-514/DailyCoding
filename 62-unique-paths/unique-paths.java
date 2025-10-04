@@ -1,16 +1,13 @@
 class Solution {
     public int uniquePaths(int m, int n) {
-        int[][]dp = new int[m+1][n+1];
-        for(int[]a:dp)Arrays.fill(a, -1);
-        return helper(0, m, 0, n, dp);
-    }
-    int helper(int cr, int m, int cc, int n, int[][]dp){
-        if(cr == m-1 && cc == n-1)return 1;
-        if(cr < 0 || cc < 0 || cr > m-1 || cc > n-1)return 0;
-        if(dp[cr][cc] != -1)return dp[cr][cc];
-        int d = helper(cr+1, m, cc, n, dp);
-        int r = helper(cr, m, cc+1, n, dp);
+        int dp[][] = new int[m][n];
 
-        return dp[cr][cc] = d + r;
+        for(int i = 0;i<m;i++){
+            for(int j = 0;j<n;j++){
+                if(i ==0 || j == 0)dp[i][j] = 1;
+                else dp[i][j] = dp[i-1][j] + dp[i][j-1];
+            }
+        }
+        return dp[m-1][n-1];
     }
 }
