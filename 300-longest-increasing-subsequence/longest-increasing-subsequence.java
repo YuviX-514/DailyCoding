@@ -1,14 +1,23 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        int dp[] = new int[nums.length];
-        for(int i =0;i<nums.length;i++){
-            for(int j= 0;j<i;j++){
-
-                if(nums[i] > nums[j])dp[i] = Math.max(dp[i], dp[j]+1);
-            }
+        List<Integer> list = new ArrayList<>();
+        for(int n : nums){
+            int idx = lb(n, list);
+            if(list.size() == idx)list.add(n);
+            else list.set(idx, n);
         }
-        int max = Integer.MIN_VALUE;
-        for(int n : dp)max = Math.max(max, n);
-        return max+1;
+        return list.size();
+    }
+
+    public int lb(int target, List<Integer> list){
+        int start = 0;
+        int end =list.size();
+        int ans = -1;
+        while(start < end){
+            int mid = start + (end - start)/2;
+            if(list.get(mid) < target)start = mid + 1;
+            else end = mid;
+        }
+        return start;
     }
 }
