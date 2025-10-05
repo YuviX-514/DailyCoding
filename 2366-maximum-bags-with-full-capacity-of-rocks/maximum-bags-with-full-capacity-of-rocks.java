@@ -1,30 +1,19 @@
 class Solution {
-    public int maximumBags(int[] capacity, int[] rocks, int ar) {
+    public int maximumBags(int[] capacity, int[] rocks, int k) {
         int n = rocks.length;
-        Pair[] arr = new Pair[n];
-        for(int i = 0;i < n;i++){
-            arr[i] = new Pair(capacity[i], rocks[i]);
-        }
-        Arrays.sort(arr, (a, b)->(Integer.compare((a.c - a.r), (b.c-b.r))));
-
-        
-        int op = 0;
+        int []diff = new int[n];
         for(int i = 0;i<n;i++){
-            int ch = arr[i].c - arr[i].r;
-            ar -= ch;
-            if(ar < 0)break;
-            op++;
-
+            diff[i] = capacity[i] - rocks[i];
         }
-        return op;
-        
-    }
-    class Pair{
-        int c;
-        int r;
-        Pair(int c, int r){
-            this.c = c;
-            this.r = r;
+        Arrays.sort(diff);
+        int c = 0;
+        for(int i = 0;i<n;i++){
+            if(k - diff[i] >= 0){
+                c++;
+                k -= diff[i];
+            }
+            else break;
         }
+        return c;
     }
 }
