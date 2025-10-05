@@ -7,9 +7,7 @@ class Solution {
         }
         Arrays.sort(arr, (a, b)->(Integer.compare((a.c - a.r), (b.c-b.r))));
 
-        for(int i=0;i<n;i++){
-            System.out.print(arr[i].c+":"+arr[i].r+ " ");
-        }
+        
         int op = 0;
         for(int i = 0;i<n;i++){
             int ch = arr[i].c - arr[i].r;
