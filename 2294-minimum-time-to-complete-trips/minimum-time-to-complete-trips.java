@@ -5,8 +5,9 @@ class Solution {
 
         for(int t : time){
             trips += (mid)/t;
+            if(trips >= totalTrips)return true;
         }
-        return trips >= totalTrips;
+        return false;
     }
     public long minimumTime(int[] time, int totalTrips) {
         long start = time[0];
