@@ -1,17 +1,33 @@
 class Solution {
     public int maxProfit(int[] prices) {
-        int h1 = Integer.MIN_VALUE;
-        int s1= 0;
-        int h2 = Integer.MIN_VALUE;
-        int s2 = 0;
+        int i = 0;
+        int buy = 0;
+        int cap = 2;
+        int dp[][][] = new int[prices.length][2][3];
+        for(int a[][] : dp){
+            for(int b[] : a)Arrays.fill(b, -1);
+        }
+        return fn(prices, i, buy, cap, dp);
+    }
 
-        for(int p : prices){
-            h1 = Math.max(h1, -p);
-            s1 = Math.max(s1, p + h1);
-            h2 = Math.max(h2, -p + s1);
-            s2 = Math.max(s2, p + h2);
+    public int fn(int[]prices, int i, int buy, int cap, int dp[][][]){
+        if(i == prices.length || cap == 0)return 0;
+
+        int op1 = 0;
+        int op2 = 0;
+
+        if(dp[i][buy][cap] != -1)return dp[i][buy][cap];
+
+        int profit;
+
+        if(buy == 0){
+            profit = Math.max(fn(prices, i+1, 0, cap, dp) , - prices[i] + fn(prices, i+1, 1, cap, dp)); 
+        }
+        else {
+           profit = Math.max(fn(prices, i+1, 1, cap, dp), prices[i] + fn(prices, i+1, 0, cap-1, dp)); 
         }
 
-        return s2;
+        return dp[i][buy][cap] = profit;
+
     }
 }
